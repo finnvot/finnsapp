@@ -1,0 +1,2882 @@
+:root{
+  color-scheme:dark;
+
+  --bg:#090a0c;
+  --panel:#17191c;
+  --panel2:#1b1d20;
+  --line:rgba(255,255,255,.08);
+  --text:#f1f2f3;
+  --muted:#969ba2;
+
+  /* Android / Samsung */
+  --safe-top:env(safe-area-inset-top, 0px);
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+  --nav-height:78px;
+}
+
+/* =========================================================
+   GLOBAL / ANDROID
+   ========================================================= */
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  background:var(--bg);
+  min-height:100%;
+  overscroll-behavior-y:none;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  min-height:100dvh;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #17191c 0,
+      #090a0c 40%
+    );
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+
+  /* Samsung/Android text rendering */
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+
+  /* verhindert horizontales Wischen der kompletten App */
+  overflow-x:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+button{
+  cursor:pointer;
+  touch-action:manipulation;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+input,
+textarea,
+select{
+  font-size:16px; /* verhindert Zoom auf Android/iOS */
+}
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
+.app-shell{
+  width:min(760px,100%);
+  min-height:100vh;
+  min-height:100dvh;
+  margin:auto;
+}
+
+.app-content{
+  width:100%;
+
+  padding:
+    max(28px,var(--safe-top))
+    20px
+    calc(var(--nav-height) + 18px + var(--safe-bottom));
+
+  /* Android Browser verhindert dadurch seltsames
+     horizontales Überlaufen */
+  overflow-x:hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+
+  padding:12px 7px 25px;
+}
+
+.page-head h1{
+  font-size:35px;
+  line-height:1;
+  margin:5px 0 7px;
+  letter-spacing:-.03em;
+}
+
+.eyebrow,
+.label,
+.section-title{
+  font-size:11px;
+  letter-spacing:.14em;
+  color:#a8adb4;
+  font-weight:600;
+}
+
+.subtitle,
+.muted{
+  color:var(--muted);
+}
+
+.subtitle{
+  font-size:15px;
+  line-height:1.5;
+  margin:0;
+}
+
+.gear,
+.back{
+  border:0;
+  background:none;
+  color:#9da2a8;
+
+  width:44px;
+  height:44px;
+
+  display:grid;
+  place-items:center;
+
+  padding:0;
+}
+
+.gear{
+  font-size:27px;
+}
+
+.back{
+  font-size:35px;
+  text-align:left;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card{
+  position:relative;
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  background:
+    linear-gradient(
+      135deg,
+      #1b1d20,
+      #111316
+    );
+
+  border-radius:20px;
+
+  /* verhindert hässliches Flackern bei Samsung Browser */
+  transform:translateZ(0);
+}
+
+/* =========================================================
+   MEIN TAG
+   ========================================================= */
+
+.today-focus{
+  display:flex;
+  align-items:center;
+  gap:20px;
+
+  padding:22px 28px;
+  margin-bottom:18px;
+
+  cursor:pointer;
+  min-height:118px;
+
+  touch-action:manipulation;
+}
+
+.today-focus>div:first-child{
+  position:relative;
+  z-index:2;
+
+  flex:1;
+  min-width:0;
+}
+
+.today-focus h2{
+  font-size:21px;
+  font-weight:500;
+  margin:10px 0 5px;
+}
+
+.focus-ring{
+  width:78px;
+  height:78px;
+  flex:0 0 78px;
+
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    conic-gradient(
+      #d1d3d5 var(--p),
+      #303338 0
+    );
+
+  position:relative;
+}
+
+.focus-ring:after{
+  content:"";
+
+  position:absolute;
+  inset:7px;
+
+  border-radius:50%;
+  background:#17191c;
+}
+
+.focus-ring span{
+  z-index:1;
+  font-size:14px;
+  font-weight:600;
+}
+
+.day-hero{
+  padding:24px;
+  margin-bottom:16px;
+}
+
+.day-hero h2{
+  font-size:27px;
+  font-weight:450;
+  margin:10px 0 5px;
+}
+
+.day-progress{
+  height:10px;
+  background:#303338;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:20px;
+}
+
+.day-progress span{
+  display:block;
+  height:100%;
+
+  background:#d0d2d4;
+  border-radius:inherit;
+
+  transition:width .25s ease;
+}
+
+.day-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.day-actions .wide-action{
+  margin:0;
+}
+
+.secondary-action{
+  background:#141619;
+  border-color:var(--line);
+}
+
+/* =========================================================
+   TODO ITEMS
+   ========================================================= */
+
+.todo-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:14px 5px;
+
+  border-bottom:1px solid rgba(255,255,255,.07);
+
+  min-height:70px;
+}
+
+.todo-item:last-child{
+  border-bottom:0;
+}
+
+.todo-check{
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+
+  border:1px solid #565b61;
+  background:#17191c;
+
+  border-radius:50%;
+
+  color:#f1f2f3;
+  font-size:15px;
+
+  display:grid;
+  place-items:center;
+
+  padding:0;
+}
+
+.todo-item.priority-high .todo-check{
+  border-color:#9a9da1;
+}
+
+.todo-item.done .todo-check{
+  background:#d7d9db;
+  color:#111316;
+  border-color:#d7d9db;
+}
+
+.todo-main{
+  flex:1;
+  min-width:0;
+  cursor:pointer;
+}
+
+.todo-title{
+  font-size:15px;
+  color:#e5e6e7;
+  line-height:1.35;
+}
+
+.todo-meta{
+  color:#8f949b;
+  font-size:11px;
+  margin-top:5px;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.todo-item.done .todo-title{
+  text-decoration:line-through;
+  color:#777c82;
+}
+
+.todo-item.done .todo-meta{
+  color:#656a70;
+}
+
+.todo-menu{
+  border:0;
+  background:none;
+  color:#676c72;
+
+  font-size:22px;
+
+  width:40px;
+  height:40px;
+
+  display:grid;
+  place-items:center;
+
+  padding:0;
+}
+
+.sub-section-title{
+  margin-top:22px;
+}
+
+.compact-empty{
+  padding:20px;
+  margin-bottom:4px;
+}
+
+/* =========================================================
+   HOME / QUOTE
+   ========================================================= */
+
+.quote{
+  min-height:215px;
+
+  padding:25px 28px;
+  margin-bottom:27px;
+}
+
+.quote-copy{
+  position:relative;
+  z-index:2;
+  max-width:68%;
+}
+
+.quote blockquote{
+  margin:17px 0 13px;
+
+  font-size:18px;
+  line-height:1.6;
+}
+
+.quote .muted{
+  font-size:14px;
+}
+
+.mountains{
+  position:absolute;
+  inset:0 0 0 43%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #181a1d,
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 65% 65%,
+      #4a4e52,
+      #1b1e22 35%,
+      #111316 70%
+    );
+
+  clip-path:
+    polygon(
+      0 100%,
+      0 60%,
+      17% 55%,
+      29% 68%,
+      43% 36%,
+      54% 66%,
+      68% 18%,
+      78% 56%,
+      91% 39%,
+      100% 55%,
+      100% 100%
+    );
+
+  opacity:.8;
+}
+
+.arrow{
+  position:absolute;
+
+  right:18px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  font-size:31px;
+  color:#c5c8cb;
+  font-weight:200;
+}
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+
+  gap:8px;
+  margin-bottom:28px;
+}
+
+.quick{
+  border:0;
+  background:none;
+
+  text-align:center;
+
+  min-width:0;
+  padding:5px 0;
+
+  touch-action:manipulation;
+}
+
+.qicon{
+  width:72px;
+  height:72px;
+
+  margin:auto auto 9px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #1b1e21,
+      #121417
+    );
+
+  font-size:34px;
+  color:#d0d2d5;
+}
+
+.quick b{
+  display:block;
+  font-size:14px;
+}
+
+.quick small{
+  display:block;
+
+  color:#8f949b;
+  font-size:11px;
+  line-height:1.25;
+
+  margin-top:4px;
+}
+
+/* =========================================================
+   JOURNAL FEATURE
+   ========================================================= */
+
+.feature{
+  min-height:240px;
+
+  padding:28px;
+  margin-bottom:18px;
+}
+
+.feature-copy{
+  position:relative;
+  z-index:2;
+  max-width:65%;
+}
+
+.feature h2{
+  font-size:22px;
+  font-weight:450;
+
+  margin:19px 0 6px;
+}
+
+.pill,
+.continue,
+.wide-action,
+.submit{
+  border:0;
+  border-radius:999px;
+
+  background:#303337;
+  color:#d9dbde;
+
+  padding:13px 20px;
+
+  touch-action:manipulation;
+}
+
+.pill{
+  margin-top:27px;
+}
+
+.desk-art{
+  position:absolute;
+  inset:0 0 0 45%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #17191c,
+      transparent 40%
+    ),
+    linear-gradient(
+      155deg,
+      #26292c,
+      #101214
+    );
+}
+
+.desk-art:after{
+  content:"";
+
+  position:absolute;
+
+  width:55%;
+  height:52%;
+
+  right:2%;
+  bottom:5%;
+
+  background:#0a0b0d;
+
+  border-radius:5px;
+
+  transform:rotate(-23deg);
+
+  box-shadow:0 15px 20px #000;
+}
+
+/* =========================================================
+   SPORT / RUNS
+   ========================================================= */
+
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:16px;
+  margin-bottom:17px;
+}
+
+.stat{
+  padding:22px 19px;
+  min-height:255px;
+}
+
+.stat-head{
+  display:flex;
+  justify-content:space-between;
+  color:#c4c7ca;
+}
+
+.small-title{
+  font-size:13px;
+  margin:20px 0 8px;
+}
+
+.sport-summary{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.ring{
+  width:116px;
+  height:116px;
+  flex:0 0 116px;
+
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    conic-gradient(
+      #d1d3d5 var(--p),
+      #303338 0
+    );
+
+  position:relative;
+}
+
+.ring:after{
+  content:"";
+
+  position:absolute;
+  inset:9px;
+
+  border-radius:50%;
+  background:#17191c;
+}
+
+.ring span{
+  z-index:1;
+  text-align:center;
+}
+
+.ring b{
+  display:block;
+  font-size:22px;
+}
+
+.ring small{
+  color:#92979d;
+  font-size:11px;
+}
+
+.metrics{
+  display:grid;
+  gap:12px;
+}
+
+.metrics div{
+  display:grid;
+
+  grid-template-columns:18px auto;
+
+  column-gap:7px;
+
+  color:#aeb2b6;
+}
+
+.metrics b{
+  font-size:12px;
+  color:#e0e1e2;
+  font-weight:450;
+}
+
+.metrics small{
+  grid-column:2;
+
+  color:#8e939a;
+  font-size:10px;
+}
+
+.big{
+  font-size:30px;
+  margin:5px 0 8px;
+}
+
+.mini-route{
+  height:68px;
+
+  padding-top:18px;
+
+  color:#999da2;
+  letter-spacing:5px;
+}
+
+.divider{
+  border-top:1px solid rgba(255,255,255,.08);
+
+  padding-top:12px;
+
+  font-size:13px;
+  color:#b6bac0;
+}
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+.language{
+  min-height:112px;
+
+  padding:20px 26px;
+
+  display:flex;
+  justify-content:space-between;
+
+  gap:15px;
+}
+
+.language>div:first-child{
+  flex:1;
+  min-width:0;
+}
+
+.language .small-title{
+  margin:13px 0 7px;
+}
+
+.bar{
+  height:8px;
+
+  background:#303338;
+
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.bar span{
+  display:block;
+
+  height:100%;
+
+  border-radius:inherit;
+
+  background:#cfd1d4;
+}
+
+.tiny{
+  font-size:11px;
+}
+
+.lang-right{
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+  align-items:flex-end;
+
+  flex-shrink:0;
+}
+
+.lang-right>span{
+  font-size:22px;
+}
+
+.continue{
+  padding:9px 15px;
+  font-size:13px;
+}
+
+/* =========================================================
+   INSIGHTS
+   ========================================================= */
+
+.insights{
+  margin-top:24px;
+}
+
+.section-title{
+  margin:22px 10px 10px;
+}
+
+.insights article{
+  border-left:2px solid #777b80;
+
+  padding:8px 13px;
+  margin:9px 0;
+
+  background:rgba(255,255,255,.025);
+
+  border-radius:0 12px 12px 0;
+}
+
+.insights article b{
+  font-size:13px;
+}
+
+.insights article p{
+  margin:4px 0;
+
+  color:#a3a7ad;
+
+  font-size:12px;
+  line-height:1.45;
+}
+
+/* =========================================================
+   LISTS / FORMS
+   ========================================================= */
+
+.wide-action{
+  width:100%;
+
+  margin:0 0 12px;
+
+  text-align:left;
+
+  padding:16px 18px;
+
+  background:#1b1d20;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  min-height:50px;
+}
+
+.list-card{
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  padding:15px 3px;
+}
+
+.list-card>div{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.list-card h3{
+  margin:7px 0 4px;
+
+  font-size:16px;
+  font-weight:500;
+}
+
+.list-card p{
+  margin:6px 0;
+
+  color:#999ea5;
+
+  font-size:13px;
+  line-height:1.5;
+}
+
+.tag{
+  background:#292c30;
+
+  color:#aeb2b7;
+
+  padding:4px 8px;
+
+  border-radius:99px;
+
+  font-size:10px;
+}
+
+.empty{
+  padding:30px;
+
+  text-align:center;
+
+  color:#969ba2;
+}
+
+.form-row{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+}
+
+label{
+  display:block;
+
+  color:#bfc3c7;
+
+  font-size:12px;
+
+  margin:13px 0;
+}
+
+label input,
+label textarea,
+label select{
+  display:block;
+
+  width:100%;
+
+  margin-top:7px;
+
+  background:#0d0f11;
+  color:#eee;
+
+  border:1px solid #2c2f33;
+
+  border-radius:11px;
+
+  padding:13px;
+
+  outline:none;
+
+  min-height:46px;
+}
+
+label input:focus,
+label textarea:focus,
+label select:focus{
+  border-color:#666b70;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.submit{
+  width:100%;
+
+  margin-top:12px;
+
+  background:#d8dadd;
+  color:#111;
+
+  min-height:50px;
+}
+
+/* =========================================================
+   FEELINGS
+   ========================================================= */
+
+.mood-row{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:8px;
+
+  margin-top:20px;
+}
+
+.mood-row button{
+  width:20%;
+  aspect-ratio:1;
+
+  border:1px solid transparent;
+
+  border-radius:15px;
+
+  background:#1c1e21;
+
+  font-size:25px;
+
+  touch-action:manipulation;
+}
+
+.mood-row button small{
+  display:block;
+
+  font-size:10px;
+
+  color:#92979f;
+
+  margin-top:4px;
+}
+
+.mood-row button.selected{
+  border-color:#bfc2c5;
+  background:#2b2e32;
+}
+
+.mood-chart{
+  height:145px;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  gap:7px;
+
+  padding:15px 0;
+}
+
+.mood-chart>div{
+  height:100%;
+
+  flex:1;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:flex-end;
+
+  align-items:center;
+
+  gap:7px;
+}
+
+.mood-chart i{
+  display:block;
+
+  width:100%;
+  max-width:22px;
+
+  background:#8f9398;
+
+  border-radius:8px 8px 3px 3px;
+
+  min-height:4px;
+}
+
+.mood-chart small{
+  font-size:9px;
+  color:#777c83;
+}
+
+/* =========================================================
+   SWEDISH
+   ========================================================= */
+
+.learning-hero{
+  padding:25px;
+}
+
+.learning-hero h2{
+  font-size:30px;
+
+  margin:13px 0 17px;
+}
+
+.bigbar{
+  height:12px;
+}
+
+.learn-stats{
+  display:flex;
+
+  gap:45px;
+
+  margin:17px 0;
+}
+
+.learn-stats b,
+.learn-stats small{
+  display:block;
+}
+
+.learn-stats small{
+  color:#92979e;
+
+  font-size:11px;
+
+  margin-top:3px;
+}
+
+/* =========================================================
+   CALENDAR
+   ========================================================= */
+
+.calendar-strip{
+  display:grid;
+
+  grid-template-columns:repeat(7,1fr);
+
+  gap:5px;
+
+  margin:15px 0 22px;
+}
+
+.calendar-strip>div{
+  padding:10px 4px;
+
+  text-align:center;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:12px;
+
+  background:#131518;
+
+  cursor:pointer;
+
+  touch-action:manipulation;
+}
+
+.calendar-strip b,
+.calendar-strip span,
+.calendar-strip small{
+  display:block;
+}
+
+.calendar-strip b{
+  font-size:9px;
+  color:#8e939a;
+}
+
+.calendar-strip span{
+  font-size:18px;
+  margin:5px 0;
+}
+
+.calendar-strip small{
+  font-size:8px;
+  color:#777c83;
+}
+
+.calendar-strip .today{
+  border-color:#9da1a5;
+}
+
+/* =========================================================
+   PROFIL – CLEAN / RESPONSIVE
+   ========================================================= */
+
+.profile{
+  text-align:center;
+
+  padding:28px;
+  margin-bottom:15px;
+
+  overflow:hidden;
+}
+
+.avatar{
+  width:70px;
+  height:70px;
+
+  margin:auto;
+
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  background:#303337;
+
+  font-size:28px;
+
+  flex-shrink:0;
+}
+
+.profile h2{
+  margin:13px 0 3px;
+
+  font-size:22px;
+  line-height:1.2;
+
+  overflow-wrap:anywhere;
+}
+
+.profile .muted,
+.profile p{
+  max-width:100%;
+
+  overflow-wrap:anywhere;
+  word-break:normal;
+
+  line-height:1.45;
+}
+
+
+/* Profil-Einstellungen */
+
+.setting-row{
+  display:flex;
+
+  justify-content:space-between;
+  align-items:center;
+
+  gap:16px;
+
+  padding:14px 2px;
+
+  margin-left: 10px;
+
+  border-bottom:1px solid rgba(255,255,255,.06);
+
+  font-size:13px;
+  line-height:1.4;
+
+  min-height:48px;
+
+  text-align:left;
+}
+
+.setting-row:last-child{
+  border-bottom:0;
+}
+
+.setting-row > *{
+  min-width:0;
+}
+
+.setting-row > span:first-child,
+.setting-row > div:first-child{
+  flex:1;
+
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+.setting-row > span:last-child,
+.setting-row > div:last-child{
+  flex-shrink:0;
+
+  max-width:48%;
+
+  text-align:right;
+
+  overflow-wrap:anywhere;
+}
+
+
+/* Falls in der Profilseite Buttons / Werte
+   rechts innerhalb der Zeile stehen */
+
+.setting-row button,
+.setting-row select{
+  max-width:48%;
+  min-width:0;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+
+/* Danger / Logout */
+
+.danger{
+  margin-top:15px;
+
+  text-align:center;
+}
+
+.danger button{
+  border:0;
+
+  background:none;
+
+  color:#b3b6ba;
+
+  padding:8px 10px;
+
+  min-height:44px;
+
+  max-width:100%;
+
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+
+
+/* =========================================================
+   STATS + PROFIL – SMALL SAMSUNG SCREENS
+   ========================================================= */
+
+@media(max-width:440px){
+
+  .kpi-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;
+  }
+
+  .kpi{
+    padding:12px 9px;
+    min-height:88px;
+  }
+
+  .kpi small,
+  .kpi span{
+    font-size:9px;
+    line-height:1.25;
+  }
+
+  .kpi b{
+    font-size:18px;
+    margin:5px 0 2px;
+  }
+
+  .statbar{
+    margin:16px 0;
+  }
+
+  .statbar>div:first-child{
+    font-size:11px;
+    gap:8px;
+  }
+
+  .big-stat{
+    margin:12px 18px 12px 0;
+    max-width:42%;
+  }
+
+  .big-stat b{
+    font-size:21px;
+  }
+
+  .big-stat span{
+    font-size:10px;
+  }
+
+  .profile{
+    padding:24px 20px;
+  }
+
+  .profile h2{
+    font-size:20px;
+  }
+
+  .setting-row{
+    gap:10px;
+    padding:13px 0;
+    font-size:12px;
+  }
+
+  .setting-row > span:last-child,
+  .setting-row > div:last-child,
+  .setting-row button,
+  .setting-row select{
+    max-width:44%;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL GALAXY
+   ========================================================= */
+
+@media(max-width:360px){
+
+  .kpi-grid{
+    gap:5px;
+  }
+
+  .kpi{
+    padding:10px 7px;
+  }
+
+  .kpi small,
+  .kpi span{
+    font-size:8px;
+  }
+
+  .kpi b{
+    font-size:16px;
+  }
+
+  .profile{
+    padding:22px 16px;
+  }
+
+  .setting-row{
+    gap:8px;
+    font-size:11px;
+  }
+
+  .setting-row > span:last-child,
+  .setting-row > div:last-child{
+    max-width:42%;
+  }
+}
+
+
+/* =========================================================
+   TEXT-SAFETY – verhindert Überlaufen
+   ========================================================= */
+
+.stat,
+.kpi,
+.profile,
+.setting-row,
+.statbar,
+.big-stat{
+  overflow-wrap:anywhere;
+}
+
+.stat img,
+.kpi img,
+.profile img{
+  max-width:100%;
+  height:auto;
+}
+
+/* =========================================================
+   BOTTOM NAV
+   ========================================================= */
+
+.bottom-nav{
+  position:fixed;
+
+  z-index:20;
+
+  left:50%;
+  bottom:0;
+
+  transform:translateX(-50%);
+
+  width:min(760px,100%);
+
+  height:calc(
+    var(--nav-height) +
+    var(--safe-bottom)
+  );
+
+  padding:
+    8px
+    20px
+    var(--safe-bottom);
+
+  display:grid;
+
+  grid-template-columns:repeat(5,1fr);
+
+  background:rgba(10,11,13,.94);
+
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.bottom-nav button{
+  position:relative;
+
+  border:0;
+  background:none;
+
+  color:#858a91;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:5px;
+
+  font-size:11px;
+
+  min-width:44px;
+  min-height:44px;
+
+  padding:4px;
+
+  touch-action:manipulation;
+}
+
+.nav-icon{
+  font-size:25px;
+  line-height:1;
+}
+
+.bottom-nav button.active{
+  color:#f4f5f6;
+}
+
+.bottom-nav button.active:after{
+  content:"";
+
+  position:absolute;
+
+  bottom:3px;
+
+  width:58px;
+  height:2px;
+
+  background:#e4e6e8;
+
+  border-radius:2px;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  z-index:50;
+
+  background:rgba(0,0,0,.68);
+
+  display:flex;
+
+  align-items:flex-end;
+  justify-content:center;
+
+  padding:
+    10px
+    10px
+    calc(10px + var(--safe-bottom));
+}
+
+.modal{
+  width:min(600px,100%);
+
+  max-height:88dvh;
+
+  overflow:auto;
+
+  background:#17191c;
+
+  border:1px solid rgba(255,255,255,.1);
+
+  border-radius:
+    24px
+    24px
+    14px
+    14px;
+
+  padding:22px;
+
+  overscroll-behavior:contain;
+
+  -webkit-overflow-scrolling:touch;
+}
+
+.modal-head{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+}
+
+.modal-head h2{
+  margin:0;
+  font-size:20px;
+}
+
+.modal-head button{
+  border:0;
+
+  background:#292c30;
+
+  border-radius:50%;
+
+  width:40px;
+  height:40px;
+
+  font-size:22px;
+
+  color:#bbb;
+}
+
+.modal form{
+  padding-bottom:8px;
+}
+
+/* =========================================================
+   SAMSUNG / ANDROID RESPONSIVE
+   ========================================================= */
+
+@media(max-width:700px){
+
+  .quick-grid{
+    grid-template-columns:repeat(3,1fr);
+    row-gap:18px;
+  }
+}
+
+@media(max-width:620px){
+
+  .app-content{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .quote{
+    padding:23px;
+    min-height:205px;
+  }
+
+  .quote blockquote{
+    font-size:16px;
+  }
+
+  .qicon{
+    width:62px;
+    height:62px;
+    font-size:29px;
+  }
+
+  .quick b{
+    font-size:12px;
+  }
+
+  .quick small{
+    font-size:9px;
+  }
+
+  .feature{
+    padding:24px;
+    min-height:225px;
+  }
+
+  .feature-copy{
+    max-width:72%;
+  }
+
+  .two-col{
+    gap:10px;
+  }
+
+  .stat{
+    padding:19px 15px;
+  }
+
+  .ring{
+    width:100px;
+    height:100px;
+    flex-basis:100px;
+  }
+
+  .kpi-grid{
+    gap:7px;
+  }
+
+  .kpi{
+    padding:13px 11px;
+  }
+
+  .kpi b{
+    font-size:19px;
+  }
+
+  .language{
+    padding:18px 20px;
+  }
+}
+
+/* =========================================================
+   KLEINE SAMSUNG GALAXY / 360-390px
+   ========================================================= */
+
+@media(max-width:440px){
+
+  .app-content{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  .page-head{
+    padding-left:4px;
+    padding-right:4px;
+  }
+
+  .page-head h1{
+    font-size:32px;
+  }
+
+  .subtitle{
+    font-size:14px;
+  }
+
+  .quote-copy{
+    max-width:72%;
+  }
+
+  .quote blockquote{
+    font-size:14px;
+    line-height:1.5;
+  }
+
+  .mountains{
+    opacity:.55;
+  }
+
+  .two-col{
+    grid-template-columns:1fr;
+  }
+
+  .stat{
+    min-height:205px;
+  }
+
+  .feature h2{
+    font-size:19px;
+  }
+
+  .calendar-strip{
+    gap:3px;
+  }
+
+  .calendar-strip>div{
+    padding:8px 2px;
+  }
+
+  .calendar-strip b{
+    font-size:8px;
+  }
+
+  .calendar-strip span{
+    font-size:16px;
+  }
+
+  .calendar-strip small{
+    font-size:7px;
+  }
+
+  .language{
+    min-height:124px;
+  }
+
+  .lang-right{
+    min-width:85px;
+  }
+
+  .today-focus{
+    padding:20px;
+    gap:14px;
+  }
+
+  .today-focus h2{
+    font-size:19px;
+  }
+
+  .focus-ring{
+    width:68px;
+    height:68px;
+    flex-basis:68px;
+  }
+
+  .day-actions{
+    grid-template-columns:1fr;
+  }
+
+  .quick-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .qicon{
+    width:58px;
+    height:58px;
+    font-size:27px;
+  }
+
+  .form-row{
+    grid-template-columns:1fr;
+  }
+
+  .learn-stats{
+    gap:25px;
+  }
+
+  .learning-hero h2{
+    font-size:27px;
+  }
+
+  .modal{
+    padding:19px;
+    border-radius:22px 22px 12px 12px;
+  }
+}
+
+/* =========================================================
+   SEHR SCHMALE GERÄTE
+   ========================================================= */
+
+@media(max-width:360px){
+
+  .app-content{
+    padding-left:11px;
+    padding-right:11px;
+  }
+
+  .page-head h1{
+    font-size:29px;
+  }
+
+  .today-focus{
+    padding:17px;
+  }
+
+  .focus-ring{
+    width:62px;
+    height:62px;
+    flex-basis:62px;
+  }
+
+  .quote{
+    padding:19px;
+  }
+
+  .feature{
+    padding:20px;
+  }
+
+  .quick b{
+    font-size:11px;
+  }
+
+  .quick small{
+    font-size:8px;
+  }
+
+  .bottom-nav{
+    padding-left:8px;
+    padding-right:8px;
+  }
+
+  .bottom-nav button{
+    font-size:10px;
+  }
+
+  .nav-icon{
+    font-size:23px;
+  }
+}
+
+/* =========================================================
+   ANDROID LANDSCAPE
+   ========================================================= */
+
+@media(
+  orientation:landscape
+) and (max-height:500px){
+
+  .app-content{
+    padding-top:20px;
+  }
+
+  .page-head{
+    padding-bottom:18px;
+  }
+
+  .bottom-nav{
+    height:calc(68px + var(--safe-bottom));
+  }
+
+  .app-content{
+    padding-bottom:
+      calc(86px + var(--safe-bottom));
+  }
+
+  .modal{
+    max-height:94dvh;
+  }
+}
+
+/* =========================================================
+   TOUCH / HOVER
+   ========================================================= */
+
+@media(hover:hover){
+
+  button:hover{
+    filter:brightness(1.08);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX – STATS + PROFIL
+   Samsung / kleine Android Displays
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   STATS – SYSTEM
+   --------------------------------------------------------- */
+
+.stats-system,
+.system-card,
+.stats-system.card{
+  width:100%;
+  min-width:0;
+  overflow:hidden;
+}
+
+.stats-system > *,
+.system-card > *{
+  min-width:0;
+  max-width:100%;
+}
+
+
+/* ---------------------------------------------------------
+   STATS – GESAMTZEIT
+   --------------------------------------------------------- */
+
+.total-time,
+.gesamtzeit,
+.total-time-card,
+.gesamtzeit-card{
+  width:100%;
+  min-width:0;
+  overflow:hidden;
+}
+
+.total-time *,
+.gesamtzeit *,
+.total-time-card *,
+.gesamtzeit-card *{
+  min-width:0;
+  max-width:100%;
+}
+
+
+/* Zahlen niemals aus der Box drücken */
+
+.total-time b,
+.gesamtzeit b,
+.total-time-card b,
+.gesamtzeit-card b{
+  display:block;
+
+  font-size:clamp(22px,7vw,30px);
+  line-height:1.1;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
+  max-width:100%;
+}
+
+
+/* Beschriftungen */
+
+.total-time span,
+.gesamtzeit span,
+.total-time-card span,
+.gesamtzeit-card span{
+  display:block;
+
+  max-width:100%;
+
+  font-size:11px;
+  line-height:1.35;
+
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+
+
+/* ---------------------------------------------------------
+   PROFIL – WOCHENZIELE
+   --------------------------------------------------------- */
+
+.weekly-goals,
+.wochenziele,
+.week-goals,
+.weekly-goals.card,
+.wochenziele.card{
+  width:100%;
+  min-width:0;
+  overflow:hidden;
+}
+
+.weekly-goals > *,
+.wochenziele > *,
+.week-goals > *{
+  min-width:0;
+  max-width:100%;
+}
+
+
+/* Zeilen der Wochenziele */
+
+.weekly-goals .setting-row,
+.wochenziele .setting-row,
+.week-goals .setting-row{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  min-width:0;
+
+  padding-left:0;
+  padding-right:0;
+}
+
+
+/* Linker Text */
+
+.weekly-goals .setting-row > :first-child,
+.wochenziele .setting-row > :first-child,
+.week-goals .setting-row > :first-child{
+  flex:1 1 auto;
+  min-width:0;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+
+/* Rechter Wert */
+
+.weekly-goals .setting-row > :last-child,
+.wochenziele .setting-row > :last-child,
+.week-goals .setting-row > :last-child{
+  flex:0 1 auto;
+  min-width:0;
+
+  max-width:45%;
+
+  text-align:right;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+
+.label-wochenziele {
+  
+  margin-left: 10px;
+
+}
+
+
+/* ---------------------------------------------------------
+   PROFIL – SYSTEM
+   --------------------------------------------------------- */
+
+.profile-system,
+.profil-system,
+.profile-system.card,
+.profil-system.card{
+  width:100%;
+  min-width:0;
+  overflow:hidden;
+}
+
+.profile-system > *,
+.profil-system > *{
+  min-width:0;
+  max-width:100%;
+}
+
+
+/* System-Zeilen sauber aufteilen */
+
+.profile-system .setting-row,
+.profil-system .setting-row{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  min-width:0;
+
+  padding-left:0;
+  padding-right:0;
+}
+
+
+/* Linke Bezeichnung */
+
+.profile-system .setting-row > :first-child,
+.profil-system .setting-row > :first-child{
+  flex:1 1 auto;
+
+  min-width:0;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+
+/* Rechter Inhalt */
+
+.profile-system .setting-row > :last-child,
+.profil-system .setting-row > :last-child{
+  flex:0 1 auto;
+
+  min-width:0;
+  max-width:45%;
+
+  text-align:right;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   KLEINE SAMSUNG GALAXY
+   --------------------------------------------------------- */
+
+@media(max-width:440px){
+
+  .total-time b,
+  .gesamtzeit b,
+  .total-time-card b,
+  .gesamtzeit-card b{
+    font-size:24px;
+  }
+
+  .weekly-goals .setting-row,
+  .wochenziele .setting-row,
+  .week-goals .setting-row,
+  .profile-system .setting-row,
+  .profil-system .setting-row{
+    gap:9px;
+
+    font-size:12px;
+
+    min-height:46px;
+  }
+
+  .weekly-goals .setting-row > :last-child,
+  .wochenziele .setting-row > :last-child,
+  .week-goals .setting-row > :last-child,
+  .profile-system .setting-row > :last-child,
+  .profil-system .setting-row > :last-child{
+    max-width:43%;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   SEHR SCHMALE GALAXYS
+   --------------------------------------------------------- */
+
+@media(max-width:360px){
+
+  .total-time b,
+  .gesamtzeit b,
+  .total-time-card b,
+  .gesamtzeit-card b{
+    font-size:22px;
+  }
+
+  .weekly-goals .setting-row,
+  .wochenziele .setting-row,
+  .week-goals .setting-row,
+  .profile-system .setting-row,
+  .profil-system .setting-row{
+    gap:7px;
+    font-size:11px;
+  }
+
+  .weekly-goals .setting-row > :last-child,
+  .wochenziele .setting-row > :last-child,
+  .week-goals .setting-row > :last-child,
+  .profile-system .setting-row > :last-child,
+  .profil-system .setting-row > :last-child{
+    max-width:40%;
+  }
+}
+
+
+
+/* =========================================================
+   FINAL SAMSUNG / ANDROID FIX
+   STATS + PROFIL
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   STATS — DEIN SYSTEM
+   --------------------------------------------------------- */
+
+.stats-system {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stats-system .section-title {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.stats-system .statbar {
+  width: 100%;
+  min-width: 0;
+  margin: 18px 0;
+}
+
+.stats-system .statbar > div:first-child {
+  width: 100%;
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  align-items: center;
+  column-gap: 12px;
+
+  line-height: 1.35;
+}
+
+.stats-system .statbar > div:first-child span {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stats-system .statbar > div:first-child b {
+  min-width: 0;
+
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.stats-system .bar {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+
+/* ---------------------------------------------------------
+   STATS — GESAMT
+   --------------------------------------------------------- */
+
+.stats-total {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stats-total .section-title {
+  margin-bottom: 4px;
+}
+
+.stats-total {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  column-gap: 24px;
+  row-gap: 8px;
+}
+
+.stats-total .section-title {
+  grid-column: 1 / -1;
+}
+
+.stats-total .big-stat {
+  display: flex;
+
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+
+  margin: 12px 0 8px;
+}
+
+.stats-total .big-stat b {
+  min-width: 0;
+  max-width: 100%;
+
+  font-size: 23px;
+  line-height: 1.15;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats-total .big-stat span {
+  min-width: 0;
+  max-width: 100%;
+
+  font-size: 11px;
+  line-height: 1.35;
+
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+
+/* ---------------------------------------------------------
+   PROFIL — SYSTEM
+   --------------------------------------------------------- */
+
+.profile-system {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.profile-system .section-title {
+  margin-bottom: 4px;
+}
+
+.profile-system .setting-row {
+  width: 100%;
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  column-gap: 12px;
+
+  align-items: center;
+}
+
+.profile-system .setting-row > span:first-child {
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-system .setting-row > b {
+  min-width: 0;
+
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  font-size: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   SAMSUNG / KLEINE DISPLAYBREITE
+   --------------------------------------------------------- */
+
+@media (max-width: 440px) {
+
+  .stats-total {
+    column-gap: 16px;
+  }
+
+  .stats-total .big-stat b {
+    font-size: 20px;
+  }
+
+  .stats-total .big-stat span {
+    font-size: 10px;
+  }
+
+  .profile-goals label {
+    grid-template-columns:
+      minmax(0, 1fr)
+      78px;
+
+    column-gap: 10px;
+  }
+
+  .profile-system .setting-row {
+    column-gap: 10px;
+  }
+
+}
+
+
+@media (max-width: 360px) {
+
+  .stats-total {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+  }
+
+  .stats-total .section-title {
+    grid-column: auto;
+  }
+
+  .stats-total .big-stat {
+    margin: 8px 0;
+  }
+
+  .stats-total .big-stat b {
+    font-size: 21px;
+  }
+
+  .profile-goals label {
+    grid-template-columns:
+      minmax(0, 1fr)
+      72px;
+
+    column-gap: 8px;
+
+    font-size: 12px;
+  }
+
+  .profile-system .setting-row {
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+
+    column-gap: 8px;
+
+    font-size: 11px;
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   ABSOLUTE TEXT-SAFETY
+   --------------------------------------------------------- */
+
+.stats-system *,
+.stats-total *,
+.profile-goals *,
+.profile-system * {
+  box-sizing: border-box;
+}
+
+.stats-system,
+.stats-total,
+.profile-goals,
+.profile-system {
+  overflow-x: hidden;
+}
+
+
+/* ---------------------------------------------------------
+   BIBEL SEITE
+   --------------------------------------------------------- */
+
+.bible-detail {
+  padding: 24px;
+}
+
+.bible-detail-text {
+  margin: 24px 0 12px;
+  font-size: 1.35rem;
+  line-height: 1.6;
+}
+
+.bible-detail-reference {
+  margin-bottom: 24px;
+}
+
+.bible-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.bible-favorite {
+  width: 100%;
+  cursor: pointer;
+}
+
+.bible-open {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+/* =========================================================
+   BIBEL FAVORITEN – PROFIL
+   ========================================================= */
+
+.bible-favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bible-favorite-row {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 13px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: inherit;
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+/* ---------------------------------------------------------
+   Referenz
+   --------------------------------------------------------- */
+
+.bible-favorite-row span:first-child {
+  flex: 1;
+
+  min-width: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+
+  color: var(--text);
+}
+
+
+/* ---------------------------------------------------------
+   Pfeil
+   --------------------------------------------------------- */
+
+.bible-row-arrow {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  font-size: 20px;
+  line-height: 1;
+
+  color: var(--muted);
+}
+
+
+/* ---------------------------------------------------------
+   Touch Feedback
+   --------------------------------------------------------- */
+
+.bible-favorite-row:active {
+  transform: scale(0.98);
+
+  background: rgba(255, 255, 255, 0.07);
+
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================
+   MEINE BIBELVERSE – ABSTÄNDE & EINRÜCKUNG
+   ========================================================= */
+
+.bible-favorites-section {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.bible-favorites-section .section-title {
+  padding-left: 4px;
+  margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   WOCHENZIELE – FINAL
+   ========================================================= */
+
+.profile-goals {
+  padding: 20px !important;
+  overflow: hidden;
+}
+
+.profile-goals .section-title {
+  margin: 0 0 20px 0 !important;
+}
+
+.profile-goals .label-wochenziele {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+
+  margin: 0 0 14px 0 !important;
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+}
+
+.profile-goals .label-wochenziele input {
+  flex: 0 0 64px !important;
+
+  width: 64px !important;
+  min-width: 64px !important;
+  max-width: 64px !important;
+
+  height: 40px !important;
+
+  margin: 0 !important;
+  padding: 8px !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+
+  background: rgba(255, 255, 255, 0.04) !important;
+
+  color: inherit !important;
+
+  font: inherit !important;
+  text-align: center !important;
+}
+
+.profile-goals .wide-action {
+  width: 100% !important;
+  margin-top: 6px !important;
+}
+
+
+/* =========================================================
+   STATISTIKEN – INNENABSTÄNDE FINAL
+   ========================================================= */
+
+.stats-system,
+.stats-total {
+  box-sizing: border-box !important;
+
+  padding: 20px !important;
+
+  margin-top: 18px !important;
+  margin-bottom: 18px !important;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   STATISTIKEN – KPI KARTEN
+   ========================================================= */
+
+.kpi-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+
+  width: 100% !important;
+  margin-bottom: 18px !important;
+}
+
+.kpi {
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  padding: 16px !important;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi small {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kpi b {
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.kpi span {
+  font-size: 12px;
+  opacity: 0.55;
+}
+
+
+/* ---------------------------------------------------------
+   Überschriften
+   --------------------------------------------------------- */
+
+.stats-system .section-title,
+.stats-total .section-title {
+  margin: 0 0 20px 0 !important;
+  padding: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   STATISTIK-BALKEN
+   --------------------------------------------------------- */
+
+.stats-system .statbar {
+  width: 100% !important;
+  max-width: 100% !important;
+
+  box-sizing: border-box !important;
+
+  margin: 0 0 18px 0 !important;
+  padding: 0 !important;
+}
+
+.stats-system .statbar:last-child {
+  margin-bottom: 0 !important;
+}
+
+
+/* Zeile mit Name + Wert */
+
+.stats-system .statbar > div:first-child {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  width: 100% !important;
+
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* Balken */
+
+.stats-system .statbar .bar {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+
+  height: 7px;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+}
+
+
+/* ---------------------------------------------------------
+   GESAMT – Werte
+   --------------------------------------------------------- */
+
+.stats-total .big-stat {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+
+  width: 100% !important;
+
+  box-sizing: border-box !important;
+
+  margin: 0 !important;
+  padding: 14px 0 !important;
+
+  gap: 16px;
+}
+
+.stats-total .big-stat:first-of-type {
+  padding-top: 0 !important;
+}
+
+.stats-total .big-stat:last-child {
+  padding-bottom: 0 !important;
+}
+
+
+/* Zahl */
+
+.stats-total .big-stat b {
+  flex: 0 0 auto;
+
+  font-size: 24px;
+}
+
+
+/* Beschreibung */
+
+.stats-total .big-stat span {
+  min-width: 0;
+
+  text-align: right;
+}
